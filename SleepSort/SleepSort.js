@@ -22,7 +22,7 @@ var SleepSort = function(arr,call)
     {
         oarr[key] += Math.abs(min);
     }
-    var func = function PrintNum(k)
+    var func = function(k)
     {
         //console.log(arr[k]);
         newArr.push(arr[k]);
@@ -38,9 +38,9 @@ var SleepSort = function(arr,call)
     }
 
 }
-var ranBigNum = 50;
+var ranBigNum = 1000;
 var needArr = [];
-for(var i = 0;i < 1000;i++)
+for(var i = 0;i < 100;i++)
 {
     if(i%2 == 0)
         needArr.push( Math.floor( Math.random()*ranBigNum ) )
@@ -56,3 +56,8 @@ SleepSort(needArr,function(arr){
     console.log('排序结束时间:',endTime);
     console.log('[长度:',arr.length,']排序耗时毫秒:',(endTime -  startTime));
 });
+
+
+var a = '1100.01'
+a = a + 0;
+console.log(a)
