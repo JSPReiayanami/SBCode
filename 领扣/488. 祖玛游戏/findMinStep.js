@@ -1,3 +1,4 @@
+
 /**
  * @param {string} board
  * @param {string} hand
@@ -124,4 +125,16 @@ var findMinStep = function (board, hand) {
     }
 };
 
-findMinStep("RBYYBBRRB", "YRBGB")
+//findMinStep("RBYYBBRRB", "YRBGB")
+let yy = require('./yinyong')
+console.log(yy.TTT)
+
+
+// let info = {End:21,Start:99,Count:1,Change:6,Target:28}
+// while(true){
+//     if(info.Start < info.End) break
+//     info.Count *=  (info.Start/100)
+//     info.Start -= info.Change
+// }
+// console.log(info)
+// console.log(info.Target/info.Count)
