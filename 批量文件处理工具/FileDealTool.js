@@ -1,3 +1,6 @@
+String.prototype.replaceAll = function(s1, s2) {
+    return this.replace(new RegExp(s1, "gm"), s2);
+}
 let stream = require('stream');
 
 let ToolClass = require('./ToolClass')
@@ -53,4 +56,4 @@ exports.DealPut = function(){
 }
 
 this.PutCode()
-//tool.ReplceName([ '/Users/b/Desktop/temp/hot/1.73.416', 'cloud', 'hot', 'Y' ])
+//tool.ReplceName([ '/Users/b/Desktop/temp/hot/1.73.416', 'cloud', 'hot', 'Y' ,'Y','json'])
