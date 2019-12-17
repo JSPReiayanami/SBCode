@@ -56,5 +56,5 @@ exports.DealPut = function(){
 }
 
 this.PutCode()
-tool.ReplceName([ '/Users/b/Desktop/temp/hot/1.73.416', 'cloud', 'hot', 'Y' ,'Y','txt'])
+//tool.ReplceName([ '/Users/b/Desktop/temp/hot/1.73.416', 'cloud', 'hot', 'Y' ,'Y','txt'])
 //tool.DeleteFileWithType(['/Users/b/Desktop/temp/hot/1.73.416','mata'])
