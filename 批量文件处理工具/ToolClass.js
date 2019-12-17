@@ -1,4 +1,5 @@
 var fs = require("fs")
+var xlsx = require("xlsx")
 function readDirSync(path) {
     let pathArr = []
     let dirArr = []
@@ -28,7 +29,7 @@ ToolClass.prototype.Help = function () {
         + "  Close:[关闭工具]\n"
         + "  ReplceName:[绝对路径,原名,替换的名字,是否包括文件夹的名字(Y/N),是否包含文件夹内文件内容(Y/N),包含的文件内容的文件后缀名(例子:json,txt,js)]\n"
         + "  DeleteFileWithType:[绝对路径,需要删除的文件类型,可写多个用逗号隔开(例子js,txt)]\n"
-
+        + "  XLSXReplace:[绝对路径,原名,替换的名字]\n"
     )
 }
 
@@ -149,5 +150,49 @@ ToolClass.prototype.DeleteFileWithType = function (data) {
     console.log('删除文件:', deleteCount, '个文件')
 }
 
+
+ToolClass.prototype.XLSXReplace = function(data){
+    let path = data[0]
+    let oldKey = data[1]
+    let newKey = data[2]
+    let fileInfo = readDirSync(path)
+    let fileArr = fileInfo.PathArr
+    let dirArr = fileInfo.DirArr
+    for (let index in fileArr) {
+        let filePathStr = fileArr[index]
+        if (this.IsFileTypeInMap(filePathStr, {'xlsx':1})) {
+            let workBook = xlsx.readFile(filePathStr)
+            for(let indexBook in workBook.Sheets){
+                let sheet = workBook.Sheets[indexBook]
+                for(let sheetIndex in sheet){
+                    let hengPaiArr = sheet[sheetIndex]
+                    if(typeof hengPaiArr === 'string') continue
+                    for(let indexHengPai in hengPaiArr){
+                        let content = hengPaiArr[indexHengPai]
+                        
+                        if(typeof content === 'number'){
+                            content = ""+content
+                            content = content.replaceAll(oldKey, newKey)
+                            try {
+                                content = parseFloat(content)
+                            } catch (error) {
+                            }
+                        }else if(typeof content === 'string'){
+                            content = content.replaceAll(oldKey, newKey)
+                        }else{
+
+                        }
+
+                        workBook.Sheets[indexBook][sheetIndex][indexHengPai] = content
+                    }
+                }
+            }
+            xlsx.writeFile(workBook,filePathStr)
+            console.log(workBook)
+        }
+        
+    }
+    
+}
 
 module.exports = ToolClass

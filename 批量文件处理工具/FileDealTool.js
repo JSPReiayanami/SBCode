@@ -56,5 +56,6 @@ exports.DealPut = function(){
 }
 
 this.PutCode()
-//tool.ReplceName([ '/Users/b/Desktop/temp/hot/1.73.416', 'cloud', 'hot', 'Y' ,'Y','txt'])
+//tool.ReplceName([ '/Users/b/Desktop/temp/hot/1.73.416', 'normal', 'normal2222', 'Y' ,'Y','xlsx'])
 //tool.DeleteFileWithType(['/Users/b/Desktop/temp/hot/1.73.416','mata'])
+//tool.XLSXReplace(['/Users/b/Desktop/temp/hot/1.73.416','noRmal',"noRMal"])
