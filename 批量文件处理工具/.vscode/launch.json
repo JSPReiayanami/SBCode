@@ -8,8 +8,10 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceFolder}/FileDealTool.js",
-            "args": ["ReplaceName","aaa","bbb"]
+            //"program": "${workspaceFolder}/FileDealTool.js",
+            "program": "${workspaceFolder}/CopyNewGame.js",
+            //"args": ["ReplaceName","aaa","bbb"],
+            "args":["/Users/b/Desktop/temp/testCopyGame/assets","poseidon","copyGame"]
         }
     ]
 }

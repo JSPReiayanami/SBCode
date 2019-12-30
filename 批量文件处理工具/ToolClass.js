@@ -1,5 +1,8 @@
 var fs = require("fs")
 var xlsx = require("xlsx")
+String.prototype.replaceAll = function(s1, s2) {
+    return this.replace(new RegExp(s1, "gm"), s2);
+}
 function readDirSync(path) {
     let pathArr = []
     let dirArr = []
@@ -151,7 +154,7 @@ ToolClass.prototype.DeleteFileWithType = function (data) {
 }
 
 
-ToolClass.prototype.XLSXReplace = function(data){
+ToolClass.prototype.XLSXReplace = function (data) {
     let path = data[0]
     let oldKey = data[1]
     let newKey = data[2]
@@ -160,26 +163,26 @@ ToolClass.prototype.XLSXReplace = function(data){
     let dirArr = fileInfo.DirArr
     for (let index in fileArr) {
         let filePathStr = fileArr[index]
-        if (this.IsFileTypeInMap(filePathStr, {'xlsx':1})) {
+        if (this.IsFileTypeInMap(filePathStr, { 'xlsx': 1 })) {
             let workBook = xlsx.readFile(filePathStr)
-            for(let indexBook in workBook.Sheets){
+            for (let indexBook in workBook.Sheets) {
                 let sheet = workBook.Sheets[indexBook]
-                for(let sheetIndex in sheet){
+                for (let sheetIndex in sheet) {
                     let hengPaiArr = sheet[sheetIndex]
-                    if(typeof hengPaiArr === 'string') continue
-                    for(let indexHengPai in hengPaiArr){
+                    if (typeof hengPaiArr === 'string') continue
+                    for (let indexHengPai in hengPaiArr) {
                         let content = hengPaiArr[indexHengPai]
-                        
-                        if(typeof content === 'number'){
-                            content = ""+content
+
+                        if (typeof content === 'number') {
+                            content = "" + content
                             content = content.replaceAll(oldKey, newKey)
                             try {
                                 content = parseFloat(content)
                             } catch (error) {
                             }
-                        }else if(typeof content === 'string'){
+                        } else if (typeof content === 'string') {
                             content = content.replaceAll(oldKey, newKey)
-                        }else{
+                        } else {
 
                         }
 
@@ -187,12 +190,56 @@ ToolClass.prototype.XLSXReplace = function(data){
                     }
                 }
             }
-            xlsx.writeFile(workBook,filePathStr)
+            xlsx.writeFile(workBook, filePathStr)
             console.log(workBook)
         }
-        
+
     }
-    
+
 }
 
+ToolClass.prototype.CopyDirectory = function (src, dst) {
+    this.DeleteDirectory(dst);
+    this.CreateDirectory(dst);
+    let paths = fs.readdirSync(src); //同步读取当前目录
+    paths.forEach((path) => {
+        var _src = src + '/' + path;
+        var _dst = dst + '/' + path;
+        fs.stat(_src, (err, stats) => {  //stats  该对象 包含文件属性
+            if (err) throw err;
+            if (stats.isFile()) { //如果是个文件则拷贝 
+                fs.copyFileSync(_src, _dst)
+            } else if (stats.isDirectory()) { //是目录则 递归 
+                this.CopyDirectory(_src,_dst);
+            }
+        });
+    })
+}
+
+
+
+ToolClass.prototype.DeleteDirectory = function (path) {
+    var files = [];
+    if (fs.existsSync(path)) {
+        files = fs.readdirSync(path);
+        files.forEach( (file, index) =>{
+            var curPath = path + "/" + file;
+            if (fs.statSync(curPath).isDirectory()) { // recurse
+                this.DeleteDirectory(curPath);
+            } else { // delete file
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(path);
+    }
+}
+ToolClass.prototype.CreateDirectory = function (dir) {
+    if (fs.existsSync(dir) != true) {
+        fs.mkdirSync(dir);
+    }
+}
+
+ToolClass.prototype.CopyFile = function (src,dst) {
+    fs.copyFileSync(src, dst)
+}
 module.exports = ToolClass
