@@ -9,9 +9,10 @@
             "request": "launch",
             "name": "启动程序",
             //"program": "${workspaceFolder}/FileDealTool.js",
-            "program": "${workspaceFolder}/CopyNewGame.js",
+            //"program": "${workspaceFolder}/CopyNewGame.js",
+            "program": "${workspaceFolder}/MoveGame.js",
             //"args": ["ReplaceName","aaa","bbb"],
-            "args":["/Users/b/Desktop/temp/testCopyGame/assets","poseidon","copyGame"]
+            "args":["/Users/b/Desktop/temp/testCopyGame","/Users/b/Desktop/temp/testMoveGame","poseidon"]
         }
     ]
 }

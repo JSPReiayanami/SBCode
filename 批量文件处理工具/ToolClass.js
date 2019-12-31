@@ -235,6 +235,28 @@ ToolClass.prototype.DeleteDirectory = function (path) {
 }
 ToolClass.prototype.CreateDirectory = function (dir) {
     if (fs.existsSync(dir) != true) {
+        //判断上一级文件夹存在不
+        let pathArr = dir.split('/')
+        if(pathArr.length > 2){
+            let lastPath = ""
+            for(let index in pathArr){
+                if(parseInt(index) == pathArr.length - 1){
+                    break
+                }
+                if(pathArr[index] != ""){
+                    if(lastPath == ""){
+                        lastPath = "/"+pathArr[index]
+                    }else{
+                        lastPath = lastPath+"/"+pathArr[index]
+                    }
+                    
+                }
+                
+            }
+            if(lastPath != ""){
+                this.CreateDirectory(lastPath)
+            }
+        }
         fs.mkdirSync(dir);
     }
 }
@@ -242,4 +264,5 @@ ToolClass.prototype.CreateDirectory = function (dir) {
 ToolClass.prototype.CopyFile = function (src,dst) {
     fs.copyFileSync(src, dst)
 }
+
 module.exports = ToolClass
