@@ -8,7 +8,11 @@ if(data.length != 5){
 }
 let path = data[2]
 let oName = data[3]
+let oFist = oName[0]
+let oFistBigName = oFist.toLocaleUpperCase+''+oName.substr(1,oName.length - 1)
 let newName = data[4]
+let newFist = newName[0]
+let newFistBigName = newFist.toLocaleUpperCase+''+newFist.substr(1,newFist.length - 1)
 let scpOPath = path+"/scripts/scene-slots-machine/slots-machines/"+oName
 let scpNewPath = path+"/scripts/scene-slots-machine/slots-machines/"+newName
 console.log("脚本拷贝开始")
@@ -25,8 +29,11 @@ tool.DeleteFileWithType([scpNewPath,'meta'])
 tool.DeleteFileWithType([resNewPath,'meta'])
 console.log("删除meta文件结束")
 console.log("修改文件名字开始")
+//首字母大写消息都处理一下
 tool.ReplceName([ scpNewPath, oName, newName, 'Y' ,'Y'])
 tool.ReplceName([ resNewPath, oName, newName, 'Y' ,'Y'])
+tool.ReplceName([ scpNewPath, oFistBigName, newFistBigName, 'Y' ,'Y'])
+tool.ReplceName([ resNewPath, oFistBigName, newFistBigName, 'Y' ,'Y'])
 console.log("修改文件名字结束")
 console.log("拷贝场景")
 let sceneOPath = path+"/scene/machine-scene/"+oName+"-machine-scene.fire"
